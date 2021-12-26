@@ -19,8 +19,6 @@ class Solution:
                 else:
                     num_iter += 1 # increase the counter
             return num_iter
-
-        
         
         for i in range(len(s)):
             # num_iter = 0 # counter to count the number of instrcutions the robot can execute
