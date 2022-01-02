@@ -15,7 +15,7 @@ class Solution:
                 curr_str.append(chr(node.val + ord('a')))
                 
                 if not node.left and not node.right:
-                    # updat the reversed result if the current string is 
+                    # update the reversed result if the current string is 
                     # lexicographically smallest than the result
                     self.result = min(self.result, ''.join(curr_str[::-1]))
                 
