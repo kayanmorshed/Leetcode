@@ -19,14 +19,18 @@ class Solution:
             # the current index as middle index
             
             # only one middle index (len(s) = odd)
-            returnedPalindrome = getLongestPalidrome(s, idx, idx)  # idx = 1
-            if len(returnedPalindrome) > len(res):
-                res = returnedPalindrome
+            palindrome_odd = getLongestPalidrome(s, idx, idx)  # idx = 1
             
             # two middle indices
-            returnedPalindrome = getLongestPalidrome(s, idx, idx+1)  # idx = 1,2
-            if len(returnedPalindrome) > len(res):
-                res = returnedPalindrome             
+            palindrome_even = getLongestPalidrome(s, idx, idx+1)  # idx = 1,2
+            
+            if len(palindrome_odd) > len(palindrome_even):
+                max_palindrome = palindrome_odd  
+            else:
+                max_palindrome = palindrome_even
+            
+            if len(max_palindrome) > len(res):
+                res = max_palindrome             
 
         return res
  
