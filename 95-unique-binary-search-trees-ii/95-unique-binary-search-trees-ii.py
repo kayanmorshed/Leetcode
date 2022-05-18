@@ -7,42 +7,40 @@
 
 class Solution:
     def generateTrees(self, n: int) -> List[TreeNode]:
-        if n == 0:
+        if n == 0: 
             return []
         
-        return self.helper(1, n)
-
-
-    def helper(self, start, end):
-        # edge case, see exposition below
-        if start > end: 
-            return [None] 
+        return self.createAllBST(1, n)
+    
+    
+    def createAllBST(self, start, end):
+        if start > end:
+            return [None]
         
-        # list of all unique BSTs
-        all_trees = [] 
+        all_trees = []
         
-        for curRootVal in range(start, end+1): # generate all roots using list [start, end]
-			
-            # recursively get list of subtrees less than curRoot 
-            # (a BST must have left subtrees less than the root)
-            all_left_subtrees = self.helper(start, curRootVal-1)
-			
-			# recursively get list of subtrees greater than curRoot 
-            # (a BST must have right subtrees greater than the root)
-            all_right_subtrees = self.helper(curRootVal+1, end) 
-			
-            for left_subtree in all_left_subtrees:   # get each possible left subtree
-                for right_subtree in all_right_subtrees: # get each possible right subtree
-                    # create root node with each combination of left and right subtrees
-                    curRoot = TreeNode(curRootVal) 
-                    curRoot.left = left_subtree
-                    curRoot.right = right_subtree
-					
-					# curRoot is now the root of a BST
-                    all_trees.append(curRoot)
-		
-        return all_trees            
+        # create BST considering every integer as root value
+        for curr in range(start, end+1):
+            
+            # get all left subtrees
+            left_trees = self.createAllBST(start, curr-1)
+            
+            # get all right subtrees
+            right_trees = self.createAllBST(curr+1, end)
+            
+            # iterate through left_trees and right_trees to construct possible trees with the root value = curr
+            for each_left in left_trees:
+                for each_right in right_trees:
+                    # generate the root node, left node and right node
+                    root = TreeNode(curr)
+                    root.left = each_left
+                    root.right = each_right
+                    
+                    # append the newly constructed tree into all_trees[]
+                    all_trees.append(root)
         
+        return all_trees
+                    
             
         
         
