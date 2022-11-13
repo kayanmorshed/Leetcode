@@ -2,23 +2,18 @@ class Solution:
     def longestValidParentheses(self, s: str) -> int:
         # using dynamic programming (credit: pennlio)
         
-        # add a 
+        # add an extra closing parenthesis in the beginning to handle edge case
         s = ')' + s
         
-        # use 1D DP
-        # dp[i] records the longestValidParenthese EXACTLY ENDING at s[i]
-        dp = [0 for x in range(len(s))]
-        max_to_now = 0
+        # Initialize a list of len(s) memory space to trace the longest valied parentheses ending at s[i]  
+        dp = [0 for x in range(len(s))] # dp[i] = longestValidParentheses ending at s[i]
+        mx = 0 # variable to hold the (max) length of the longestValidParentheses so far 
         
         for i in range(1,len(s)):
             if s[i] == ')':
                 # case 1: ()()
-                if s[i-1] == '(':
-                    # add nearest parentheses pairs + 2
-                    print(i)
-                    print(dp[i-2])
-                    print(s[i-2])
-                    dp[i] = dp[i-2] + 2
+                if s[i-1] == '(': 
+                    dp[i] = dp[i-2] + 2 # add nearest parentheses pairs + 2
                 
                 # case 2: (()) 
                 # i-dp[i-1]-1 is the index of last "(" not paired until this ")"
@@ -29,5 +24,5 @@ class Solution:
                     else:
                     # otherwise is 0
                         dp[i] = 0
-                max_to_now = max(max_to_now, dp[i])
-        return max_to_now
+                mx = max(mx, dp[i])
+        return mx
